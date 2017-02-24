@@ -16,19 +16,18 @@ start = datetime.strptime("01-02-2014", "%m-%d-%Y")
 portfolio = pd.DataFrame({'Name': [],'Number': [],'Price': []})
 backtrack = pd.DataFrame(index=pd.date_range(start, now, dtype='datetime64[ns]'), columns = ['MarketValue', 'Cost', 'ReturnSeries'])
 backtrack = backtrack.fillna(0)
-money = int(input("Starting money:"))
-monthly_money = int(input("Montly investment:"))
+money = int(raw_input("Starting money:"))
+monthly_money = int(raw_input("Montly investment:"))
 #Stock code list and their percentages.
 code_list = []
 code_list_perc = []
-number_of_inputs = int(input("Number of stocks:"))
+number_of_inputs = int(raw_input("Number of stocks:"))
 
-backtrack.sort_index()
 
 for i in range(0,number_of_inputs):
     #Stock name and percentages
-    stock_name = str(input("Name of the stock:"))
-    stock_percentage = float(input("Stock percentage:"))
+    stock_name = str(raw_input("Name of the stock:"))
+    stock_percentage = float(raw_input("Stock percentage:"))
     code_list.append(stock_name)
     code_list_perc.append(stock_percentage)
     #Getting the initial stock variables.
@@ -44,8 +43,8 @@ portfolio['Value'] = portfolio.Number * portfolio.Price
 #Determining the initial backtrack positions.
 backtrack.ix[start, 'MarketValue'] = portfolio['Value'].sum()
 backtrack.ix[start, 'Cost'] = portfolio['Value'].sum()
+start = start + timedelta(days=1)
 i = 0
-
 for stock in code_list:
     ##start_date = datetime.strftime(start, '%m-%d-%Y')
     ##end_date = datetime.strftime(now, '%m-%d-%Y')
